@@ -55,7 +55,12 @@ func (r *S3Repository) GetTransactions() (transaction.Transaction, error) {
 		log.Fatalf("failed opening file: %s", err)
 	}
 
-	fmt.Println(*msgResult.Messages[0].Body)
+	if(msgResult != nil && msgResult.Messages != nil && msgResult.Messages[0] != nil){
+		fmt.Println(*msgResult.Messages[0].Body)
+	}else{
+		fmt.Println("Not messages")
+	}
+	
 
 	return transaction, error
 }
