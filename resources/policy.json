@@ -1,0 +1,47 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+            "Sid": "cloudwatchlogs",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:CreateLogGroup",
+                "logs:PutLogEvents"
+            ],
+            "Resource": [
+                "arn:aws:logs:us-east-1:851560454673:log-group:/ecs/task-go-sqs-listener",
+                "arn:aws:logs:us-east-1:851560454673:log-group:/ecs/task-go-sqs-listener:*"
+            ]
+        },
+        {
+            "Sid": "s3test",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::nequi-s3-select-tmp/*"
+        },
+        {
+            "Sid": "creditstable",
+            "Action": [
+                "dynamodb:GetItem"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:dynamodb:us-east-1:851560454673:table/credit-customer-product-qa"
+        },
+        {
+            "Sid": "sqsreceivemessage",
+            "Action": [
+                "sqs:ReceiveMessage",
+                "sqs:DeleteMessage",
+                "sqs:GetQueueAttributes",
+                "sqs:SendMessage"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:sqs:us-east-1:851560454673:sqs-lambda-customer-service-create-ticket-comment-qa"
+            ]
+        }
+    ]
+}

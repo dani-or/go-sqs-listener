@@ -1,0 +1,28 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-sqs-listener-deployment
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+      ambiente: pruebas
+      lenguaje: node
+      project: go-sqs-listener
+  template:
+    metadata:
+      labels:
+        app: backend
+        ambiente: pruebas
+        lenguaje: node
+        project: go-sqs-listener
+    spec:
+      serviceAccountName: go-sqs-listener-service-account-name1
+      containers:
+        - name: go-sqs-listener
+          image: 851560454673.dkr.ecr.us-east-1.amazonaws.com/go-sqs-listener:latest
+          ports:
+            - containerPort: 8080

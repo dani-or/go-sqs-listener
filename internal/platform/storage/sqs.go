@@ -8,7 +8,6 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/service/sqs"
-	//"errors"
 )
 
 type S3Repository struct {
@@ -22,9 +21,14 @@ type LineRecord struct {
 }
 
 func NewS3Repository() *S3Repository {
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		SharedConfigState: session.SharedConfigEnable,
-	}))
+	sess, err := session.NewSession(&aws.Config{
+		Region: aws.String("us-east-1")},
+	)
+
+	if err != nil{
+		fmt.Println(err)
+	}
+
 	svc := sqs.New(sess)
 	return &S3Repository{
 		client : svc,
